@@ -1,26 +1,67 @@
- <!-- see original at http://codepen.io/davidkpiano/pen/wMqXea -->
+<!-- see original at http://codepen.io/davidkpiano/pen/wMqXea -->
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>Ejercicios de promises</title>
     <link rel="stylesheet" href="promises.css">
     <script type="text/javascript">
-
     /////////// Ejercicio 1 //////////////
     // Escribir un wrapper "parseJSON" de JSON.parse que reciba un parámetro, 
     // que devuelva una promise y se resuelva o se rejecte según si 
     // el elemento pasado por parámetro es json válido o no
+
+
+    function parseJSON(obj) {
+
+        var fn = (resolve, reject) => {
+            try {
+                resolve(JSON.parse(obj));
+            } catch (e) {
+                reject(e);
+            }
+        }
+
+        return new Promise(fn);
+    }
+
 
     /////////// Ejercicio 2 //////////////
     // Escribir una función "arePrime" que acepte una promise o array de promises por parámetro
     // y resuelva únicamente si todas las promises recibidas por parámetro se resolvieron
     // y además si el valor con el cual se resolvieron es un número y dicho número es primo
 
+    function isPrime(n) {
+        if (isNaN(n) || !isFinite(n) || n % 1 || n < 2) return false;
+        var m = Math.sqrt(n);
+        for (var i = 2; i <= m; i++)
+            if (n % i == 0) return false;
+        return true;
+    }
+
+    function arePrime(args) {
+
+        var fn = (resolve, reject) => {
+
+            var promises = (args instanceof Array) ? args : [args]
+
+            Promise.all(promises).then(
+                (value) => {
+                    isPrime(value) ? resolve() : reject();
+                }, (reason) => {
+                    reject()
+                });
+        }
+
+        return new Promise(fn);
+    }
     </script>
     <script type="text/javascript" src="promises-post.js"></script>
     </script>
-  </head>
-  <body>
-  </body>
+</head>
+
+<body>
+</body>
+
 </html>
