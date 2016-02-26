@@ -72,7 +72,7 @@ describe("utils", () => {
     });
 
     describe('forEach', () => {
-        it.skip('should throw if it doesn\'t receives an iterable', () => {
+        it('should throw if it doesn\'t receives an iterable', () => {
             assert.throws(() => utils.forEach(undefined));
             assert.throws(() => utils.forEach(1));
             assert.throws(() => utils.forEach(true));
@@ -80,7 +80,7 @@ describe("utils", () => {
             assert.throws(() => utils.forEach({}));
         });
 
-        it.skip('should iterate the elements correctly', () => {
+        it('should iterate the elements correctly', () => {
             const expected = ['a', 'b', 'c'];
             let i = 0, called = false;
 
@@ -100,31 +100,31 @@ describe("utils", () => {
     });
 
     describe('multiply', () => {
-        it.skip('should throw when no parameter is received', () => {
+        it('should throw when no parameter is received', () => {
             assert.throws(() => utils.multiply());
         });
-        it.skip('should return 0 when passing 0 as parameter', () => {
+        it('should return 0 when passing 0 as parameter', () => {
             assert(utils.multiply(0) === 0);
         });
 
-        it.skip('should throw when passing a string, boolean, or object', () => {
+        it('should throw when passing a string, boolean, or object', () => {
             assert.throws(() => utils.multiply(true));
             assert.throws(() => utils.multiply("foo"));
             assert.throws(() => utils.multiply({}));
             assert.throws(() => utils.multiply(1,2, undefined, 4));
         });
 
-        it.skip('should multiply correctly', () => {
+        it('should multiply correctly', () => {
             assert(utils.multiply(1,2,3) === 6);
         });
     });
 
     describe('makeIterable', () => {
-        it.skip('should add the key Symbol.iterator to the object', () => {
+        it('should add the key Symbol.iterator to the object', () => {
             assert(utils.makeIterable({})[Symbol.iterator] !== undefined);
         });
 
-        it.skip('should return an interator with "value" and "done" properties', () => {
+        it('should return an interator with "value" and "done" properties', () => {
             const obj = utils.makeIterable({}),
                   iterator = obj[Symbol.iterator]();
             assert(typeof iterator === 'object');
@@ -136,7 +136,7 @@ describe("utils", () => {
             assert(next.value !== undefined);
         });
 
-        it.skip('should return a correct iterator', () => {
+        it('should return a correct iterator', () => {
             let i = 0;
             const expected = [['a', 5],['b', 8],['c', 13]];
             for(const x of utils.makeIterable({a:5, b: 8, c:13})) {
@@ -145,7 +145,7 @@ describe("utils", () => {
             }
         });
 
-        it.skip('should return the object passed as parameter', () => {
+        it('should return the object passed as parameter', () => {
             const expected = {},
                   actual = utils.makeIterable(expected);
             assert(expected === actual);
@@ -153,7 +153,7 @@ describe("utils", () => {
     });
 
     describe('entries', () => {
-        it.skip('should throw if receives a non-object or null argument', () => {
+        it('should throw if receives a non-object or null argument', () => {
             assert.throws(() => utils.entries(1));
             assert.throws(() => utils.entries(0));
             assert.throws(() => utils.entries(null));
@@ -164,7 +164,7 @@ describe("utils", () => {
             assert.doesNotThrow(() => utils.entries(() =>{}));
         });
 
-        it.skip('should return an array of entries', () => {
+        it('should return an array of entries', () => {
             const expected = [['a', 5],['b', 8],['c', 13]];
             const actual = utils.entries({a:5, b:8, c:13});
 
